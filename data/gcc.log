@@ -1,0 +1,66 @@
+==> Verifying checksum for '559e034f74c34915cb09448408674998a817c3bd0b3169f92713409582d12aac--libmpc--1.3.1.arm64_sequoia.bottle.tar.gz'
+==> Verifying checksum for '60fa2423dc926752ede37498a51f3ad7eaf221ea291d59ade1f901628e93ae6f--mpfr--4.2.2.arm64_sequoia.bottle.tar.gz'
+==> Verifying checksum for 'bf49684930d46534519868918a01b252cc02b7585129e8c40db2b41156f21541--isl--0.27.arm64_sequoia.bottle.tar.gz'
+==> Verifying checksum for '2e0d3f4ab5d7d9a02ca4b90f208dfc7667cb721831104fde23f74f32f28f8268--gcc--15.2.0.arm64_sequoia.bottle.tar.gz'
+mkdir -p /opt/share/gdb/auto-load
+mkdir -p /opt/share/gdb/auto-load/opt
+mkdir -p /opt/share/gdb/auto-load/opt
+mkdir -p /opt/share/gdb/auto-load/opt/Cellar
+mkdir -p /opt/share/gdb/auto-load/opt/Cellar/glib
+mkdir -p /opt/share/gdb/auto-load/opt/Cellar/glib/2.86.1
+mkdir -p /opt/share/gdb/auto-load/opt/Cellar/glib/2.86.1/lib
+ln -s ../../../../../../../../../Cellar/glib/2.86.1/share/gdb/auto-load/opt/Cellar/glib/2.86.1/lib/libglib-2.0.so.0.8600.1-gdb.py libglib-2.0.so.0.8600.1-gdb.py
+ln -s ../../../../../../../../../Cellar/glib/2.86.1/share/gdb/auto-load/opt/Cellar/glib/2.86.1/lib/libgobject-2.0.so.0.8600.1-gdb.py libgobject-2.0.so.0.8600.1-gdb.py
+ln -s ../../../Cellar/isl/0.27/share/gdb/auto-load/libisl.23.dylib-gdb.py libisl.23.dylib-gdb.py
+ln -s ../Cellar/isl/0.27/lib/libisl.23.dylib libisl.23.dylib
+ln -s ../Cellar/isl/0.27/lib/libisl.a libisl.a
+ln -s ../Cellar/isl/0.27/lib/libisl.dylib libisl.dylib
+ln -s ../../Cellar/isl/0.27/lib/pkgconfig/isl.pc isl.pc
+ln -s ../Cellar/mpfr/4.2.2/include/mpf2mpfr.h mpf2mpfr.h
+ln -s ../Cellar/mpfr/4.2.2/include/mpfr.h mpfr.h
+ln -s ../../Cellar/mpfr/4.2.2/share/doc/mpfr mpfr
+ln -s ../../Cellar/mpfr/4.2.2/share/info/mpfr.info mpfr.info
+ln -s ../Cellar/mpfr/4.2.2/lib/libmpfr.6.dylib libmpfr.6.dylib
+ln -s ../Cellar/mpfr/4.2.2/lib/libmpfr.a libmpfr.a
+ln -s ../Cellar/mpfr/4.2.2/lib/libmpfr.dylib libmpfr.dylib
+ln -s ../../Cellar/mpfr/4.2.2/lib/pkgconfig/mpfr.pc mpfr.pc
+ln -s ../Cellar/libmpc/1.3.1/include/mpc.h mpc.h
+ln -s ../../Cellar/libmpc/1.3.1/share/info/mpc.info mpc.info
+info /opt/share/info/mpc.info
+ln -s ../Cellar/libmpc/1.3.1/lib/libmpc.3.dylib libmpc.3.dylib
+ln -s ../Cellar/libmpc/1.3.1/lib/libmpc.a libmpc.a
+ln -s ../Cellar/libmpc/1.3.1/lib/libmpc.dylib libmpc.dylib
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-c++-15 aarch64-apple-darwin24-c++-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-g++-15 aarch64-apple-darwin24-g++-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-gcc-15 aarch64-apple-darwin24-gcc-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-gcc-ar-15 aarch64-apple-darwin24-gcc-ar-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-gcc-nm-15 aarch64-apple-darwin24-gcc-nm-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-gcc-ranlib-15 aarch64-apple-darwin24-gcc-ranlib-15
+ln -s ../Cellar/gcc/15.2.0/bin/aarch64-apple-darwin24-gfortran-15 aarch64-apple-darwin24-gfortran-15
+ln -s ../Cellar/gcc/15.2.0/bin/c++-15 c++-15
+ln -s ../Cellar/gcc/15.2.0/bin/cpp-15 cpp-15
+ln -s ../Cellar/gcc/15.2.0/bin/g++-15 g++-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcc-15 gcc-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcc-ar-15 gcc-ar-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcc-nm-15 gcc-nm-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcc-ranlib-15 gcc-ranlib-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcov-15 gcov-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcov-dump-15 gcov-dump-15
+ln -s ../Cellar/gcc/15.2.0/bin/gcov-tool-15 gcov-tool-15
+ln -s ../Cellar/gcc/15.2.0/bin/gfortran gfortran
+ln -s ../Cellar/gcc/15.2.0/bin/gfortran-15 gfortran-15
+ln -s ../Cellar/gcc/15.2.0/bin/lto-dump-15 lto-dump-15
+ln -s ../Cellar/gcc/15.2.0/include/c++ c++
+ln -s ../Cellar/gcc/15.2.0/share/gcc-15 gcc-15
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/cpp-15.1 cpp-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/g++-15.1 g++-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/gcc-15.1 gcc-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/gcov-15.1 gcov-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/gcov-dump-15.1 gcov-dump-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/gcov-tool-15.1 gcov-tool-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/gfortran-15.1 gfortran-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man1/lto-dump-15.1 lto-dump-15.1
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man7/fsf-funding-15.7 fsf-funding-15.7
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man7/gfdl-15.7 gfdl-15.7
+ln -s ../../../Cellar/gcc/15.2.0/share/man/man7/gpl-15.7 gpl-15.7
+ln -s ../Cellar/gcc/15.2.0/lib/gcc gcc
