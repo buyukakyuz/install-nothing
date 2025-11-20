@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::build_logs::BuildLogs;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
@@ -29,7 +30,8 @@ impl InstallationStage for CompilationStage {
         println!();
 
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             "make[1]: Entering directory '/usr/src/linux-headers-5.4.0'".dimmed()
         );
         println!();
@@ -57,9 +59,9 @@ impl InstallationStage for CompilationStage {
                 };
 
                 let progress = ProgressBar::new(ProgressStyle::Block);
-                progress.animate(&log.cyan().to_string(), duration, exit_check)?;
+                progress.animate(&format!("{} {}", LogGenerator::timestamp().dimmed(), log.cyan()), duration, exit_check)?;
             } else {
-                println!("{}", log.cyan());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.cyan());
                 let speed_category = rng.gen_range(0..10);
                 let delay = if speed_category < 4 {
                     rng.gen_range(10..30)
@@ -74,7 +76,8 @@ impl InstallationStage for CompilationStage {
 
         println!();
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             "make[1]: Leaving directory '/usr/src/linux-headers-5.4.0'".dimmed()
         );
 

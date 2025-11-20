@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use colored::*;
 use rand::Rng;
 use std::io::{self, Write};
@@ -34,7 +35,7 @@ impl InstallationStage for ServicesStage {
             ("apache2.service", "The Apache HTTP Server"),
         ];
 
-        println!("{}", "Starting system services...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Starting system services...".bright_white());
         println!();
 
         for (_service, description) in &services {
@@ -43,14 +44,16 @@ impl InstallationStage for ServicesStage {
             }
 
             print!(
-                "{}",
+                "{} {}",
+                LogGenerator::timestamp().dimmed(),
                 format!("[ ** ] Starting {}...", description).bright_cyan()
             );
             io::stdout().flush()?;
             thread::sleep(Duration::from_millis(rng.gen_range(300..800)));
             print!("\r");
             println!(
-                "{}",
+                "{} {}",
+                LogGenerator::timestamp().dimmed(),
                 format!("[ OK ] Started {}.", description).bright_green()
             );
             thread::sleep(Duration::from_millis(rng.gen_range(100..300)));
@@ -58,7 +61,8 @@ impl InstallationStage for ServicesStage {
 
         println!();
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             format!(
                 "Loaded {} services, {} active",
                 services.len(),

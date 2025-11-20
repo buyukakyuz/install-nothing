@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
 use rand::Rng;
@@ -21,7 +22,8 @@ impl InstallationStage for InitramfsStage {
 
         let kernel_version = "5.4.0-42-generic";
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             format!(
                 "update-initramfs: Generating /boot/initrd.img-{}",
                 kernel_version
@@ -47,7 +49,7 @@ impl InstallationStage for InitramfsStage {
         }
 
         for module in &modules {
-            println!("{}", format!("Adding module: {}", module).dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), format!("Adding module: {}", module).dimmed());
             thread::sleep(Duration::from_millis(rng.gen_range(100..250)));
         }
 
@@ -60,11 +62,11 @@ impl InstallationStage for InitramfsStage {
         )?;
 
         println!();
-        println!("{}", "Creating initramfs image...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Creating initramfs image...".bright_white());
         thread::sleep(Duration::from_millis(rng.gen_range(1000..2000)));
 
         let size_mb = rng.gen_range(25..45);
-        println!("{}", format!("Image size: {}MB", size_mb).bright_green());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("Image size: {}MB", size_mb).bright_green());
 
         Ok(())
     }

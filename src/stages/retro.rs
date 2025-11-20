@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::messages::RETRO_SOFTWARE;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
@@ -26,14 +27,15 @@ impl InstallationStage for RetroSoftwareStage {
             }
 
             println!(
-                "\n{} {} {}",
+                "\n{} {} {} {}",
+                LogGenerator::timestamp().dimmed(),
                 "Installing".bright_white(),
                 name.bright_cyan().bold(),
                 format!("v{}", version).dimmed()
             );
 
             if rng.gen_bool(0.2) {
-                println!("{}", "Checking for previous installation...".dimmed());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), "Checking for previous installation...".dimmed());
                 thread::sleep(Duration::from_millis(500));
             }
 
@@ -44,11 +46,11 @@ impl InstallationStage for RetroSoftwareStage {
                 exit_check,
             )?;
 
-            println!("{}", "  Creating shortcuts...".dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "  Creating shortcuts...".dimmed());
             thread::sleep(Duration::from_millis(400));
 
             if rng.gen_bool(0.3) {
-                println!("{}", "  Registering file associations...".dimmed());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), "  Registering file associations...".dimmed());
                 thread::sleep(Duration::from_millis(300));
             }
         }

@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::ui::Spinner;
 use colored::*;
 use rand::Rng;
@@ -20,7 +21,7 @@ impl InstallationStage for XorgStage {
         let mut rng = rand::thread_rng();
         let mut spinner = Spinner::new();
 
-        println!("{}", "Installing X.Org Server...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Installing X.Org Server...".bright_white());
         thread::sleep(Duration::from_millis(600));
 
         let packages = [
@@ -36,23 +37,23 @@ impl InstallationStage for XorgStage {
             if exit_check() {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
-            println!("{}", format!("  Setting up {}...", package).dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Setting up {}...", package).dimmed());
             thread::sleep(Duration::from_millis(rng.gen_range(200..500)));
         }
 
         println!();
         spinner.animate("Generating X server configuration...", 1500, exit_check)?;
 
-        println!("{}", "Probing graphics hardware...".dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Probing graphics hardware...".dimmed());
         thread::sleep(Duration::from_millis(800));
 
         let gpu_vendors = ["Intel", "NVIDIA", "AMD Radeon", "VirtualBox Graphics"];
         let gpu = gpu_vendors[rng.gen_range(0..gpu_vendors.len())];
-        println!("{}", format!("  Detected: {} Graphics", gpu).bright_green());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Detected: {} Graphics", gpu).bright_green());
 
         thread::sleep(Duration::from_millis(400));
-        println!("{}", "  Resolution: 1920x1080@60Hz".dimmed());
-        println!("{}", "  Color depth: 24-bit".dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "  Resolution: 1920x1080@60Hz".dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "  Color depth: 24-bit".dimmed());
 
         println!();
         spinner.animate("Building font cache...", 2000, exit_check)?;

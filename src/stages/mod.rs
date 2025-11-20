@@ -13,7 +13,6 @@ mod initramfs;
 mod kernel;
 mod locale;
 mod network;
-mod optimization;
 mod packages;
 mod retro;
 mod services;
@@ -38,7 +37,6 @@ pub use initramfs::InitramfsStage;
 pub use kernel::KernelStage;
 pub use locale::LocaleStage;
 pub use network::NetworkStage;
-pub use optimization::OptimizationStage;
 pub use packages::PackagesStage;
 pub use retro::RetroSoftwareStage;
 pub use services::ServicesStage;
@@ -77,7 +75,6 @@ pub fn selected_stages(stages: &[Stage]) -> Vec<Box<dyn InstallationStage>> {
             Stage::Services => Box::new(ServicesStage),
             Stage::Retro => Box::new(RetroSoftwareStage),
             Stage::Locale => Box::new(LocaleStage),
-            Stage::Optimization => Box::new(OptimizationStage),
             Stage::Container => Box::new(ContainerStage::new(config.container.clone())),
             Stage::Ai => Box::new(AiStage::new(config.ai.clone())),
             Stage::Cloud => Box::new(CloudStage::new(config.cloud.clone())),

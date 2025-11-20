@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::messages::DRIVERS;
 use colored::*;
 use rand::Rng;
@@ -24,12 +25,12 @@ impl InstallationStage for DriversStage {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
 
-            print!("Detecting: {} ", device.bright_cyan());
+            print!("{} Detecting: {} ", LogGenerator::timestamp().dimmed(), device.bright_cyan());
             io::stdout().flush()?;
             thread::sleep(Duration::from_millis(rng.gen_range(400..900)));
 
             println!("{}", "[FOUND]".bright_green());
-            println!("  └─ Loading driver: {}", driver.dimmed());
+            println!("{}   └─ Loading driver: {}", LogGenerator::timestamp().dimmed(), driver.dimmed());
             thread::sleep(Duration::from_millis(300));
         }
 

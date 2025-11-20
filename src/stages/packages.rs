@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::messages::PACKAGES;
 use crate::ui::{ProgressBar, ProgressStyle, Spinner};
 use colored::*;
@@ -29,7 +30,7 @@ impl InstallationStage for PackagesStage {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
 
-            println!("Unpacking {}...", package.bright_white());
+            println!("{} Unpacking {}...", LogGenerator::timestamp().dimmed(), package.bright_white());
 
             let size_kb: u32 = rng.gen_range(512..8192);
             let speed_kb: u32 = rng.gen_range(64..512);
@@ -42,18 +43,20 @@ impl InstallationStage for PackagesStage {
             )?;
 
             if rng.gen_bool(0.4) {
-                println!("{}", format!("Setting up {}...", package).dimmed());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), format!("Setting up {}...", package).dimmed());
                 thread::sleep(Duration::from_millis(300));
             }
         }
 
         println!(
-            "\n{}",
+            "\n{} {}",
+            LogGenerator::timestamp().dimmed(),
             "Processing triggers for shared libraries...".dimmed()
         );
         thread::sleep(Duration::from_millis(800));
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             "ldconfig: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1".dimmed()
         );
 

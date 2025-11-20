@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::ui::{ProgressBar, ProgressStyle, Spinner};
 use colored::*;
 use rand::Rng;
@@ -28,7 +29,8 @@ impl InstallationStage for DatabaseStage {
         let version = if db_type == "MySQL" { "8.0.28" } else { "14.2" };
 
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             format!("Installing {} Server {}...", db_type, version).bright_white()
         );
         thread::sleep(Duration::from_millis(800));
@@ -37,16 +39,17 @@ impl InstallationStage for DatabaseStage {
 
         if db_type == "PostgreSQL" {
             println!(
-                "{}",
+                "{} {}",
+                LogGenerator::timestamp().dimmed(),
                 "The files belonging to this database system will be owned by user \"postgres\"."
                     .dimmed()
             );
-            println!("{}", "This user must also own the server process.".dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "This user must also own the server process.".dimmed());
             thread::sleep(Duration::from_millis(500));
         }
 
         println!();
-        println!("{}", "Creating database files...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Creating database files...".bright_white());
 
         let files = [
             "global/pg_control",
@@ -60,7 +63,7 @@ impl InstallationStage for DatabaseStage {
             if exit_check() {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
-            println!("{}", format!("  creating {}", file).dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  creating {}", file).dimmed());
             thread::sleep(Duration::from_millis(rng.gen_range(150..300)));
         }
 
@@ -76,11 +79,13 @@ impl InstallationStage for DatabaseStage {
         spinner.animate("Creating template databases...", 1500, exit_check)?;
 
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             "Success. You can now start the database server using:".bright_green()
         );
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             format!(
                 "    {} -D /var/lib/{}/data",
                 if db_type == "PostgreSQL" {

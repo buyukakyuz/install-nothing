@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::kernel_logs::KernelLogs;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
@@ -44,7 +45,7 @@ impl KernelStage {
                 };
 
                 let progress = ProgressBar::new(ProgressStyle::Block);
-                progress.animate(&log.bright_cyan().to_string(), duration, exit_check)?;
+                progress.animate(&format!("{} {}", LogGenerator::timestamp().dimmed(), log.bright_cyan()), duration, exit_check)?;
             } else {
                 let speed_category = rng.gen_range(0..10);
                 let delay = if speed_category < 4 {
@@ -55,7 +56,7 @@ impl KernelStage {
                     rng.gen_range(100..400)
                 };
 
-                println!("{}", log.dimmed());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.dimmed());
                 thread::sleep(Duration::from_millis(delay));
             }
         }
@@ -73,14 +74,15 @@ impl InstallationStage for KernelStage {
         println!("\n{}", format!("> {}", self.name()).bright_yellow().bold());
         println!();
 
-        println!("{}", "Building Linux kernel from source...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Building Linux kernel from source...".bright_white());
         println!();
 
         self.display_logs(self.kernel_logs.all_logs(), exit_check)?;
 
         println!();
         println!(
-            "{}",
+            "{} {}",
+            LogGenerator::timestamp().dimmed(),
             "Kernel build completed successfully!".bright_green().bold()
         );
 

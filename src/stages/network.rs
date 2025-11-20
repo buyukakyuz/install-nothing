@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::ui::Spinner;
 use colored::*;
 use rand::Rng;
@@ -20,13 +21,13 @@ impl InstallationStage for NetworkStage {
         let mut rng = rand::thread_rng();
         let mut spinner = Spinner::new();
 
-        println!("{}", "Configuring network interfaces...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Configuring network interfaces...".bright_white());
         thread::sleep(Duration::from_millis(500));
 
         let interfaces = ["eth0", "enp0s3", "wlan0"];
         let interface = interfaces[rng.gen_range(0..interfaces.len())];
 
-        println!("{}", format!("  Interface: {}", interface).dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Interface: {}", interface).dimmed());
         thread::sleep(Duration::from_millis(300));
 
         if exit_check() {
@@ -46,22 +47,22 @@ impl InstallationStage for NetworkStage {
         );
         let gateway = format!("192.168.{}.1", rng.gen_range(0..255));
 
-        println!("{}", format!("  IP Address: {}", ip).bright_green());
-        println!("{}", format!("  Netmask: 255.255.255.0").dimmed());
-        println!("{}", format!("  Gateway: {}", gateway).dimmed());
-        println!("{}", format!("  DNS: 8.8.8.8, 8.8.4.4").dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  IP Address: {}", ip).bright_green());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Netmask: 255.255.255.0").dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Gateway: {}", gateway).dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  DNS: 8.8.8.8, 8.8.4.4").dimmed());
         thread::sleep(Duration::from_millis(600));
 
         println!();
         spinner.animate("Configuring DNS resolution...", 1200, exit_check)?;
 
-        println!("{}", "Updating /etc/resolv.conf".dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Updating /etc/resolv.conf".dimmed());
         thread::sleep(Duration::from_millis(400));
 
         if rng.gen_bool(0.3) {
             println!();
             spinner.animate("Testing network connectivity...", 1500, exit_check)?;
-            println!("{}", "Network is reachable".bright_green());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "Network is reachable".bright_green());
         }
 
         Ok(())

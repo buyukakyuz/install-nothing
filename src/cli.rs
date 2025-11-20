@@ -36,8 +36,6 @@ pub enum Stage {
     Retro,
     /// Locale configuration
     Locale,
-    /// Optimization
-    Optimization,
     /// Container orchestration
     Container,
     /// AI model loading
@@ -67,7 +65,6 @@ impl Stage {
             Stage::Services,
             Stage::Retro,
             Stage::Locale,
-            Stage::Optimization,
             Stage::Container,
             Stage::Ai,
             Stage::Cloud,

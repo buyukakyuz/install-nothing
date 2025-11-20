@@ -66,11 +66,3 @@ pub const RETRO_SOFTWARE: &[(&str, &str, u32)] = &[
     ("Adobe Flash Player", "7.0", 2341),
 ];
 
-/// Optimization tasks
-pub const OPTIMIZATION_TASKS: &[&str] = &[
-    "Defragmenting installation cache",
-    "Rebuilding font cache",
-    "Updating shared library cache",
-    "Optimizing package database",
-    "Generating manual page index",
-];

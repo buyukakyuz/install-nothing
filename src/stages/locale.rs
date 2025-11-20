@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
 use rand::Rng;
@@ -19,7 +20,7 @@ impl InstallationStage for LocaleStage {
 
         let mut rng = rand::thread_rng();
 
-        println!("{}", "Generating locales...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Generating locales...".bright_white());
         thread::sleep(Duration::from_millis(500));
 
         let locales = [
@@ -36,9 +37,9 @@ impl InstallationStage for LocaleStage {
             if exit_check() {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
-            println!("{}", format!("Generating locale {}... ", locale).dimmed());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), format!("Generating locale {}... ", locale).dimmed());
             thread::sleep(Duration::from_millis(rng.gen_range(300..700)));
-            println!("{}", "done".bright_green());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "done".bright_green());
         }
 
         println!();
@@ -50,7 +51,7 @@ impl InstallationStage for LocaleStage {
         )?;
 
         println!();
-        println!("{}", "Configuring timezone...".bright_white());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), "Configuring timezone...".bright_white());
         let timezones = [
             "America/New_York",
             "America/Los_Angeles",
@@ -59,7 +60,7 @@ impl InstallationStage for LocaleStage {
             "Asia/Tokyo",
         ];
         let timezone = timezones[rng.gen_range(0..timezones.len())];
-        println!("{}", format!("  Timezone set to: {}", timezone).dimmed());
+        println!("{} {}", LogGenerator::timestamp().dimmed(), format!("  Timezone set to: {}", timezone).dimmed());
         thread::sleep(Duration::from_millis(600));
 
         Ok(())

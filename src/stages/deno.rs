@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::deno_logs::DenoLogs;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
@@ -29,9 +30,9 @@ impl DenoStage {
             }
 
             if log.contains("error:") || log.contains("Error") {
-                println!("{}", log.bright_red());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.bright_red());
             } else if log.contains("warning:") {
-                println!("{}", log.yellow());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.yellow());
             } else if log.contains("Compiling") {
                 let speed_category = rng.gen_range(0..10);
                 let duration = if speed_category < 3 {
@@ -43,15 +44,15 @@ impl DenoStage {
                 };
 
                 let progress = ProgressBar::new(ProgressStyle::Block);
-                progress.animate(&log.green().to_string(), duration, exit_check)?;
+                progress.animate(&format!("{} {}", LogGenerator::timestamp().dimmed(), log.green()), duration, exit_check)?;
             } else if log.contains("Downloading") || log.contains("Downloaded") {
-                println!("{}", log.cyan());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.cyan());
                 thread::sleep(Duration::from_millis(rng.gen_range(10..40)));
             } else if log.contains("Finished") {
-                println!("{}", log.bright_green().bold());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log.bright_green().bold());
                 thread::sleep(Duration::from_millis(300));
             } else {
-                println!("{}", log);
+                println!("{} {}", LogGenerator::timestamp().dimmed(), log);
                 thread::sleep(Duration::from_millis(rng.gen_range(20..80)));
             }
         }
@@ -70,13 +71,13 @@ impl DenoStage {
                 match key_event.code {
                     KeyCode::Char('1') => {
                         println!("1");
-                        println!("{}", "Retrying compilation...".bright_cyan());
+                        println!("{} {}", LogGenerator::timestamp().dimmed(), "Retrying compilation...".bright_cyan());
                         thread::sleep(Duration::from_millis(1000));
                         return Ok(true);
                     }
                     KeyCode::Char('2') => {
                         println!("2");
-                        println!("{}", "Aborting...".bright_red());
+                        println!("{} {}", LogGenerator::timestamp().dimmed(), "Aborting...".bright_red());
                         thread::sleep(Duration::from_millis(500));
                         return Ok(false);
                     }
@@ -103,14 +104,15 @@ impl InstallationStage for DenoStage {
         let should_fail = rng.gen_bool(0.3);
 
         if should_fail {
-            println!("{}", "Building Deno from source...".bright_white());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "Building Deno from source...".bright_white());
             println!();
 
             self.display_logs(self.deno_logs.error_logs(), exit_check)?;
 
             println!();
             println!(
-                "{}",
+                "{} {}",
+                LogGenerator::timestamp().dimmed(),
                 "Build failed! The installation encountered errors.".bright_red()
             );
 
@@ -118,24 +120,24 @@ impl InstallationStage for DenoStage {
 
             if retry {
                 println!();
-                println!("{}", "Rebuilding Deno from source...".bright_white());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), "Rebuilding Deno from source...".bright_white());
                 println!();
 
                 self.display_logs(self.deno_logs.success_logs(), exit_check)?;
 
                 println!();
-                println!("{}", "Build completed successfully!".bright_green().bold());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), "Build completed successfully!".bright_green().bold());
             } else {
-                println!("{}", "Skipping Deno installation...".dimmed());
+                println!("{} {}", LogGenerator::timestamp().dimmed(), "Skipping Deno installation...".dimmed());
             }
         } else {
-            println!("{}", "Building Deno from source...".bright_white());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "Building Deno from source...".bright_white());
             println!();
 
             self.display_logs(self.deno_logs.success_logs(), exit_check)?;
 
             println!();
-            println!("{}", "Build completed successfully!".bright_green().bold());
+            println!("{} {}", LogGenerator::timestamp().dimmed(), "Build completed successfully!".bright_green().bold());
         }
 
         thread::sleep(Duration::from_millis(500));

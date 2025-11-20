@@ -1,4 +1,5 @@
 use super::InstallationStage;
+use crate::log_generator::LogGenerator;
 use crate::messages::SYSTEM_COMPONENTS;
 use crate::ui::{ProgressBar, ProgressStyle};
 use colored::*;
@@ -25,7 +26,7 @@ impl InstallationStage for SystemStage {
                 return Err(io::Error::new(io::ErrorKind::Interrupted, "User interrupt"));
             }
 
-            print!("  - {} ", component);
+            print!("{}   - {} ", LogGenerator::timestamp().dimmed(), component);
             io::stdout().flush()?;
             thread::sleep(Duration::from_millis(rng.gen_range(300..800)));
             println!("{}", "[OK]".bright_green());
