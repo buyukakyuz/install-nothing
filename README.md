@@ -2,7 +2,7 @@
 
 A terminal application that simulates installing things. It doesn't actually install anything.
 
-![Demo](demo/old-demo.gif)
+[![asciicast](https://asciinema.org/a/757039.svg)](https://asciinema.org/a/757039)
 
 ## Usage
 
