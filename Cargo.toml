@@ -2,7 +2,7 @@
 name = "install-nothing"
 version = "0.3.0"
 edition = "2021"
-authors = ["NoName"]
+authors = ["Kerim Buyukakyuz"]
 description = "A nostalgic infinite installer simulator"
 
 [dependencies]
