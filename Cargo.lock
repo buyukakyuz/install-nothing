@@ -281,7 +281,6 @@ dependencies = [
  "clap",
  "colored",
  "crossterm",
- "once_cell",
  "rand",
  "sysinfo",
 ]

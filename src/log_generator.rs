@@ -1,11 +1,10 @@
-use std::sync::Mutex;
-use once_cell::sync::Lazy;
+use std::sync::{Mutex, LazyLock};
 use rand::Rng;
 
 #[allow(dead_code)]
 pub struct LogGenerator;
 
-static LAST_TIMESTAMP: Lazy<Mutex<f64>> = Lazy::new(|| Mutex::new(0.0));
+static LAST_TIMESTAMP: LazyLock<Mutex<f64>> = LazyLock::new(|| Mutex::new(0.0));
 
 impl LogGenerator {
     pub fn timestamp() -> String {
