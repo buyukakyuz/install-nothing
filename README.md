@@ -28,6 +28,16 @@ See available stages:
 cargo run --release -- --help
 ```
 
+
+## Docker
+
+Build and run:
+
+```bash
+docker build -t install-nothing .
+docker run -it --rm --init install-nothing
+```
+
 ## License
 
 Do whatever you want with it.
