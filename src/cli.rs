@@ -88,16 +88,26 @@ pub struct Cli {
     /// Install all stages (default behavior)
     #[arg(short, long, conflicts_with = "stages")]
     pub all: bool,
+
+    /// Exclude specific stages from installation
+    #[arg(short, long, value_enum, num_args = 0.., conflicts_with = "stages")]
+    pub exclude: Vec<Stage>,
 }
 
 impl Cli {
     /// Returns the selected stages, defaulting to all if none specified
     pub fn get_stages(&self) -> Vec<Stage> {
-        if self.all || self.stages.is_empty() {
+        let mut stages = if self.all || self.stages.is_empty() {
             Stage::all()
         } else {
             self.stages.clone()
+        };
+
+        if !self.exclude.is_empty() {
+            stages.retain(|stage| !self.exclude.contains(stage));
         }
+
+        stages
     }
 }
 
@@ -110,6 +120,7 @@ mod tests {
         let cli = Cli {
             stages: vec![],
             all: false,
+            exclude: vec![],
         };
         assert_eq!(cli.get_stages(), Stage::all());
     }
@@ -119,6 +130,7 @@ mod tests {
         let cli = Cli {
             stages: vec![],
             all: true,
+            exclude: vec![],
         };
         assert_eq!(cli.get_stages(), Stage::all());
     }
@@ -128,7 +140,44 @@ mod tests {
         let cli = Cli {
             stages: vec![Stage::Bios, Stage::Boot],
             all: false,
+            exclude: vec![],
         };
         assert_eq!(cli.get_stages(), vec![Stage::Bios, Stage::Boot]);
+    }
+
+    #[test]
+    fn test_exclude_single_stage() {
+        let cli = Cli {
+            stages: vec![],
+            all: false,
+            exclude: vec![Stage::Ai],
+        };
+        let result = cli.get_stages();
+        assert!(!result.contains(&Stage::Ai));
+        assert_eq!(result.len(), Stage::all().len() - 1);
+    }
+
+    #[test]
+    fn test_exclude_multiple_stages() {
+        let cli = Cli {
+            stages: vec![],
+            all: true,
+            exclude: vec![Stage::Ai, Stage::Cloud],
+        };
+        let result = cli.get_stages();
+        assert!(!result.contains(&Stage::Ai));
+        assert!(!result.contains(&Stage::Cloud));
+        assert_eq!(result.len(), Stage::all().len() - 2);
+    }
+
+    #[test]
+    fn test_exclude_all_stages() {
+        let cli = Cli {
+            stages: vec![],
+            all: false,
+            exclude: Stage::all(),
+        };
+        let result = cli.get_stages();
+        assert_eq!(result.len(), 0);
     }
 }

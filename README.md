@@ -15,12 +15,16 @@ Press Ctrl+C to stop.
 
 ### Pick what to install
 
+By default we install everything. But you can change this behavior.
 ```bash
 # Install specific stages
-cargo run --release -- deno
+cargo run --release -- kernel
+```
 
-# Install everything (default)
-cargo run --release -- --all
+Or pick what not to install.
+```bash
+# Exclude specific stages from installation
+cargo run --release -- --exclude cloud xorg
 ```
 
 See available stages:
