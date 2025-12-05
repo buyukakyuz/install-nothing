@@ -5,9 +5,16 @@ A terminal application that simulates installing things. It doesn't actually ins
 [![asciicast](https://asciinema.org/a/757039.svg)](https://asciinema.org/a/757039)
 
 ## Usage
-
+Clone the repository
 ```bash
-cargo build --release
+git clone https://github.com/buyukakyuz/install-nothing
+```
+Go to the repository
+```bash
+cd install-nothing
+```
+And run
+```bash
 cargo run --release
 ```
 
