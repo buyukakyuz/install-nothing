@@ -2,6 +2,7 @@ mod ai;
 mod bios;
 mod boot;
 mod bootloader;
+mod traffic;
 mod cloud;
 mod compilation;
 mod container;
@@ -26,6 +27,7 @@ pub use ai::AiStage;
 pub use bios::BiosStage;
 pub use boot::BootStage;
 pub use bootloader::BootloaderStage;
+pub use traffic::TrafficStage;
 pub use cloud::CloudStage;
 pub use compilation::CompilationStage;
 pub use container::ContainerStage;
@@ -78,6 +80,7 @@ pub fn selected_stages(stages: &[Stage]) -> Vec<Box<dyn InstallationStage>> {
             Stage::Container => Box::new(ContainerStage::new(config.container.clone())),
             Stage::Ai => Box::new(AiStage::new(config.ai.clone())),
             Stage::Cloud => Box::new(CloudStage::new(config.cloud.clone())),
+            Stage::Traffic => Box::new(TrafficStage::new()),
         };
         result.push(stage_impl);
     }

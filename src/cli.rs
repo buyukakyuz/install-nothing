@@ -42,6 +42,8 @@ pub enum Stage {
     Ai,
     /// Cloud provisioning
     Cloud,
+    /// Network traffic monitor
+    Traffic,
 }
 
 impl Stage {
@@ -68,6 +70,7 @@ impl Stage {
             Stage::Container,
             Stage::Ai,
             Stage::Cloud,
+            Stage::Traffic,
         ]
     }
 }
