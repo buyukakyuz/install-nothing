@@ -44,6 +44,8 @@ pub enum Stage {
     Cloud,
     /// Network traffic monitor
     Traffic,
+    /// Gas Town agent orchestration
+    Gastown,
 }
 
 impl Stage {
@@ -71,6 +73,7 @@ impl Stage {
             Stage::Ai,
             Stage::Cloud,
             Stage::Traffic,
+            Stage::Gastown,
         ]
     }
 }
